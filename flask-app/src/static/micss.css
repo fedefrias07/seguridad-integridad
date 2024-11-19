@@ -1,0 +1,179 @@
+/* Estilos Generales */
+body {
+    background-color: #f8f9fa; /* Fondo gris claro */
+}
+
+h1 {
+    color: blue;
+}
+
+/* Clases de Iconos y Tamaños */
+.icono {
+    width: 32px !important;
+    height: auto;
+}
+
+.logo {
+    width: 64px;
+    height: 64px;
+    margin-left: 50px;
+}
+
+.perfil {
+    width: 128px !important;
+    height: auto;
+}
+
+.agregar, .opcion {
+    width: 32px;
+    height: 32px;
+}
+
+#logout {
+    width: 32px !important;
+    height: 32px !important;   
+}
+
+/* Clases de Contenedores y Artículos */
+.container {
+    background-color: white; /* Fondo blanco para el contenedor */
+    border-radius: 8px; /* Esquinas redondeadas */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Sombra suave */
+    padding: 20px;
+}
+
+.articulo {
+    max-width: 32px;
+    max-height: auto; /* "max-height" no necesita "auto", así que puedes omitirlo */
+}
+
+.comprado {
+    width: auto;
+    max-height: 200px;
+    min-height: 200px;
+}
+
+/* Clases de Texto */
+.texto {
+    font-size: small;
+}
+
+.sombreado {
+    background-color: red;
+}
+
+.p {
+    line-height: 1.6em;
+}
+
+/* Estilos de la Navegación */
+.navbar {
+    background-color: #343a40; /* Negro para la navbar */
+}
+
+.navbar-brand, .nav-link {
+    color: white !important; /* Texto blanco en la marca y enlaces */
+}
+
+.nav-link:hover {
+    color: #adb5bd; /* Color gris claro al pasar el ratón sobre los enlaces */
+}
+
+.nav-link:focus, .nav-link:hover {
+    color: rgba(0, 0, 0, 0.7);
+}
+
+.navbar-nav {
+    --bs-nav-link-color: rgb(255, 255, 255);
+}
+
+/* Estilos de la Tabla */
+.table th,
+.table td {
+    border: 1px solid #495057; /* Bordes gris oscuro */
+}
+
+/* Estilos del Footer */
+.footer {
+    background-color: #343a40; /* Negro para el footer */
+    color: white; /* Texto blanco en el footer */
+    padding: 10px 0;
+    text-align: center;
+}
+
+/* Estilos de Botones */
+button {
+    background-color: #007bff; /* Botones de color azul */
+    border: none;
+}
+
+button:hover {
+    background-color: #0056b3; /* Color azul más oscuro al pasar el ratón */
+}
+
+/* Media Queries */
+@media only screen and (min-width: 480px) {
+    .grande {
+        display: none !important;
+    }
+    .mini {
+        display: flex !important;
+    }
+}
+
+@media only screen and (min-width: 768px) {
+    .grande {
+        display: none !important;
+    }
+    .mini {
+        display: flex !important;
+    }
+}
+
+@media only screen and (min-width: 1200px) {
+    .grande {
+        display: none !important;
+    }
+    .mini {
+        display: flex !important;
+    }
+}
+
+/* Listas */
+.sinpunto {
+    list-style: none;
+}
+
+/** PIE DE PAGINA **/
+.footer a {
+    color: #ffffff;
+    text-decoration: none;
+}
+
+.footer a:hover {
+    text-decoration: underline;
+}
+
+#pie-pagina .derechos {
+    padding: 0 8px 12px;
+}
+
+#pie-pagina .derechos small {
+    font-size: 14px;
+}
+
+/* Estilo adicional para galerías */
+#galeria .col-lg-4 {
+    margin: 0 !important;
+    padding: 25px;
+    justify-content: center;
+}
+
+#galeria img {
+    width: 100%;
+    min-width: 250px;
+}
+
+#galeria img:hover {
+    border: 5px solid #f7f7f7;
+}

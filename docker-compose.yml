@@ -1,0 +1,130 @@
+
+services:
+
+  # client_centos:
+  #   build:
+  #     context: ./centos  # Asegúrate de que este directorio contenga tu Dockerfile
+  #   container_name: centos_client  
+  #   restart: on-failure
+  #   command: ["sleep", "infinity"]
+  #   networks:
+  #     - front_network
+
+  # client_ubuntu:
+  #   build:
+  #     context: ./ubuntu  # Asegúrate de que este directorio contenga tu Dockerfile
+  #   container_name: ubuntu_client  
+  #   restart: on-failure
+  #   command: ["sleep", "infinity"]
+  #   networks:
+  #     - front_network
+
+  # owaspzap:
+  #   build:
+  #     context: ./owaszap  # Asegúrate de que este directorio contenga tu Dockerfile
+  #   container_name: owaszap_container
+
+  # nginx:
+  #   build:
+  #     context: ./nginx  # Asegúrate de que este directorio contenga tu Dockerfile
+  #   container_name: nginx_proxy
+  #   ports:
+  #     - "80:80"  # Expose port 80 for external traffic
+  #   volumes:
+  #     - ./nginx/nginx.conf:/etc/nginx/nginx.conf  # Nginx configuration
+  #   depends_on:
+  #     - flask-app  # Make sure Nginx starts after the app
+  #   networks:
+  #     - front_network
+
+
+  mysql:
+    build:
+      context: ./mysql8
+    container_name: mysql8
+    environment:
+      MYSQL_ROOT_PASSWORD: root_password 
+      MYSQL_DATABASE: mydatabase
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password # pw de la conexion
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./mysql-data:/var/lib/mysql
+      - ./scripts:/docker-entrypoint-initdb.d/
+    command: ["mysqld", "--mysql-native-password=ON"]
+    networks:
+      - back_network
+
+
+  flask-app:
+    build:
+      context: ./flask-app  # Asegúrate de que este directorio contenga tu Dockerfile
+    container_name: myapp
+    ports:
+      - "5000:5000" # no expone puertos fuera de docker
+    depends_on:
+      - mysql
+    environment:
+      - FLASK_ENV=development
+      - MYSQL_HOST=mysql
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=root_password
+      - MYSQL_DB=mydatabase
+    # scale: 5
+    volumes:
+      - ./flask-app/src:/app
+    networks:
+      - front_network
+      - back_network
+  
+  
+  
+  # kali:
+  #   build: ./kali
+  #   container_name: kali_container
+  #   tty: true
+  #   volumes:
+  #     - /tmp/.X11-unix:/tmp/.X11-unix
+  #     - /kali/xrdp:/etc/xrdp
+  #   ports:
+  #     - "3389:3389"
+  #   environment:
+  #     DISPLAY: :0
+  #   # command: /bin/bash -c "apt update && apt install -y xrdp && systemctl start xrdp && tail -f /var/log/xrdp.log"
+  #   networks:
+  #     - front_network
+
+
+volumes:
+  mysql-data:
+  flask-app:
+
+
+networks:
+  front_network:
+    driver: bridge
+  back_network:
+    driver: bridge
+
+  # kali-vnc:
+  #   build: ./kali
+  #   ports:
+  #     - "5901:5901"
+  #   volumes:
+  #     - ./data:/home/vncuser/data
+  #   environment:
+  #     DISPLAY: ":1"
+  #     VNC_PASSWORD: "your_password"
+  #   networks:
+  #     - my_network
+
+
+  # kali:
+  #   image: kalilinux/kali-linux-docker
+  #   container_name: kali
+  #   ports:
+  #     - "4444:4444"  # Puerto para herramientas de pruebas (ajustar según sea necesario)
+  #   stdin_open: true
+  #   tty: true
+
